@@ -81,22 +81,56 @@ class LinkedList:
             to_delete = None
         print("List was deleted")
 
+    def save_list_to_file(self, filename):
+        """Save whole list into the file .txt format"""
+        with open(filename, 'w') as file:
+            current = self.head
+            while current:
+                file.write(str(current.data) + '\n')
+                current = current.next
+        print("List was saved")
 
-llist = LinkedList()
-llist.head = Node("Monday")
-second_element = Node("Tuesday")
-third_element = Node("Wednesday")
+    def load_list_from_file(self, filename):
+        """Load whole list from the file .txt format"""
+        new_list = LinkedList()
+        with open(filename, 'r') as file:
+            data = file.readlines()
+            data = [item.strip() for item in data]
+            for item in data:
+                new_list.add_to_end(item)
+        print(f"List was loaded from the file {filename}")
+        return new_list
 
-llist.head.next = second_element
-second_element.next = third_element
+# llist = LinkedList()
+# llist.head = Node("Monday")
+# second_element = Node("Tuesday")
+# third_element = Node("Wednesday")
 
-llist.add_to_start("Thursday")
-llist.add_to_end("Friday")
+# llist.head.next = second_element
+# second_element.next = third_element
+
+# llist.add_to_start("Thursday")
+# llist.add_to_end("Friday")
 # llist.list_print()
-llist.del_element_by_data("Thursday")
-llist.del_element_by_data("Friday")
-llist.list_print()
-llist.add_element_after("Tuesday", "Friday")
-llist.list_print()
+# llist.del_element_by_data("Thursday")
+# llist.del_element_by_data("Friday")
+# llist.list_print()
+# llist.add_element_after("Tuesday", "Friday")
+# llist.list_print()
 # llist.del_list()
 # llist.list_print()
+
+linked_list = LinkedList()
+linked_list.add_to_end(1)
+linked_list.add_to_end(2)
+linked_list.add_to_end(3)
+
+# Сохранение списка в файл
+linked_list.save_list_to_file("linked_list.txt")
+
+# Создание нового списка и загрузка из файла
+loaded_list = LinkedList()
+loaded_list = loaded_list.load_list_from_file("linked_list.txt")
+
+# Вывод списка после загрузки
+loaded_list.list_print()
